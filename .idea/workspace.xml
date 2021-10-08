@@ -11,7 +11,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/room.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dtos/message.dto.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/Message.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/message.service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/room.service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sockets/sockets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +50,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../chat-frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -49,7 +63,9 @@
       <option name="presentableId" value="Default" />
       <updated>1633421347293</updated>
       <workItem from="1633421348631" duration="16911000" />
-      <workItem from="1633506519104" duration="18939000" />
+      <workItem from="1633506519104" duration="19595000" />
+      <workItem from="1633593584326" duration="19220000" />
+      <workItem from="1633679616460" duration="13788000" />
     </task>
     <servers />
   </component>
@@ -66,12 +82,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1633444641257">
+    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1633679659018">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633444641257" />
+    <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633679659018" />
     <state x="2168" y="140" key="FileDocumentManager.FileCacheConflict" timestamp="1633421991172">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

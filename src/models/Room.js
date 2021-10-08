@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model } = require('mongoose');
 
 const Room = new Schema({
     title: {
@@ -13,14 +13,18 @@ const Room = new Schema({
         type: Number,
         required: true,
     },
+    users: {
+        type: Array,
+        ref: 'User',
+    },
     topics: {
         type: Array,
         ref: 'Topic',
     },
-    hosts :{
+    hosts: {
         type: Array,
         ref: 'User',
-    }
+    },
 });
 
 module.exports = model('Room', Room);

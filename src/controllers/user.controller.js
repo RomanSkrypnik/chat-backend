@@ -1,6 +1,10 @@
 const userService = require('../services/user.service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api.exceptions');
+const RoomModel = require('../models/Room');
+const UserModel = require('../models/User');
+const MessageModel = require('../models/Message');
+const TopicsModel = require('../models/Topic');
 
 class UserController{
 
@@ -12,7 +16,7 @@ class UserController{
             }
             const {email, password} = req.body;
             await userService.registration(email, password);
-            return res.json({message: 'registered!'});
+            return res.json({message: 'success'});
         } catch (e) {
             next(e);
         }
@@ -20,6 +24,11 @@ class UserController{
 
     async login(req, res, next){
         try{
+            await MessageModel.create({
+                text: '== привит вид евгена поддубного == ',
+                email: 'rorchenko@gmail.com',
+                room: await RoomModel.findOne({ title: 'Dungeon masters' }),
+            });
             const {email, password} = req.body;
             const userData = await userService.login(email, password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
