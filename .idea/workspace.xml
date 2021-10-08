@@ -10,22 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/room.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dtos/message.dto.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Message.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/message.service.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/room.service.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sockets/sockets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,8 +50,16 @@
       <workItem from="1633421348631" duration="16911000" />
       <workItem from="1633506519104" duration="19595000" />
       <workItem from="1633593584326" duration="19220000" />
-      <workItem from="1633679616460" duration="13788000" />
+      <workItem from="1633679616460" duration="13889000" />
     </task>
+    <task id="LOCAL-00001" summary="Minimal base with sockets">
+      <created>1633702094261</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1633702094262</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,6 +77,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Minimal base with sockets" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minimal base with sockets" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1633679659018">
       <screen x="1920" y="0" width="1920" height="1040" />
@@ -97,5 +94,9 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="165" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633421854101" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1633702097455">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633702097455" />
   </component>
 </project>
