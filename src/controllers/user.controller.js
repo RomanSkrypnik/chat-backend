@@ -6,12 +6,12 @@ const UserModel = require('../models/User');
 const MessageModel = require('../models/Message');
 const TopicsModel = require('../models/Topic');
 
-class UserController{
+class UserController {
 
-    async registration(req, res, next){
-        try{
+    async registration(req, res, next) {
+        try {
             const errors = validationResult(req);
-            if(!errors.isEmpty()){
+            if (!errors.isEmpty()) {
                 return next(ApiError.badRequest('Validation error', errors.array()))
             }
             const {email, password} = req.body;
@@ -22,13 +22,8 @@ class UserController{
         }
     }
 
-    async login(req, res, next){
-        try{
-            await MessageModel.create({
-                text: '== привит вид евгена поддубного == ',
-                email: 'rorchenko@gmail.com',
-                room: await RoomModel.findOne({ title: 'Dungeon masters' }),
-            });
+    async login(req, res, next) {
+        try {
             const {email, password} = req.body;
             const userData = await userService.login(email, password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
@@ -38,8 +33,8 @@ class UserController{
         }
     }
 
-    async logout(req, res, next){
-        try{
+    async logout(req, res, next) {
+        try {
             const {refreshToken} = req.cookies;
             const token = await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
@@ -49,8 +44,8 @@ class UserController{
         }
     }
 
-    async activate(req, res, next){
-        try{
+    async activate(req, res, next) {
+        try {
             const activationLink = req.params.link;
             await userService.activate(activationLink);
             return res.redirect(process.env.CLIENT_URL);
@@ -59,9 +54,9 @@ class UserController{
         }
     }
 
-    async refresh(req, res, next){
-        try{
-            const { refreshToken } = req.cookies;
+    async refresh(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies;
             const userData = await userService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
             return res.json(userData);
@@ -70,8 +65,8 @@ class UserController{
         }
     }
 
-    async getUsers(req, res, next){
-        try{
+    async getUsers(req, res, next) {
+        try {
             const users = await userService.getAllUsers();
             return res.json(users);
         } catch (e) {
@@ -81,11 +76,12 @@ class UserController{
 
     async user(req, res, next) {
         try {
-            return res.json({ user: req.user });
+            return res.json({user: req.user});
         } catch (e) {
             next(e);
         }
     }
+
 }
 
 module.exports = new UserController();

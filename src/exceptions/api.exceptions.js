@@ -15,6 +15,10 @@ class ApiExceptions extends Error{
     static badRequest(message, errors = []){
         return new ApiExceptions(400, message, errors);
     }
+
+    static notFound(){
+        return new ApiExceptions(404, 'Not found');
+    }
 }
 
 module.exports = ApiExceptions;

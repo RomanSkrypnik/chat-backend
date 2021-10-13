@@ -10,7 +10,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="" />
+    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controllers/message.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/exceptions/api.exceptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions/api.exceptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/message.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/message.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/room.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/room.service.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../chat-frontend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -50,7 +60,10 @@
       <workItem from="1633421348631" duration="16911000" />
       <workItem from="1633506519104" duration="19595000" />
       <workItem from="1633593584326" duration="19220000" />
-      <workItem from="1633679616460" duration="13889000" />
+      <workItem from="1633679616460" duration="17843000" />
+      <workItem from="1633939145484" duration="17705000" />
+      <workItem from="1634025879713" duration="16754000" />
+      <workItem from="1634122520308" duration="1223000" />
     </task>
     <task id="LOCAL-00001" summary="Minimal base with sockets">
       <created>1633702094261</created>
@@ -82,10 +95,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="Minimal base with sockets" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1633679659018">
+    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1634043605377">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633679659018" />
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1634025892318" />
+    <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1634043605377" />
     <state x="2168" y="140" key="FileDocumentManager.FileCacheConflict" timestamp="1633421991172">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -94,9 +108,13 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="165" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633421854101" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1633702097455">
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1633702197417">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633702097455" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633702197417" />
+    <state x="2536" y="240" key="run.anything.popup" timestamp="1634039839358">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2536" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1634039839358" />
   </component>
 </project>

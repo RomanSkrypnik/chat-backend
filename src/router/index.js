@@ -1,7 +1,8 @@
 const Router = require('express').Router;
-const userController = require('../controllers/user.controller');
 const authMiddleware = require('../middleware/auth.middleware');
+const userController = require('../controllers/user.controller');
 const roomController = require('../controllers/room.controller');
+const messageController = require('../controllers/message.controller');
 const router = new Router();
 const { body, param } = require('express-validator');
 
@@ -17,8 +18,11 @@ router.get('/auth/refresh', userController.refresh);
 router.get('/auth/user', authMiddleware, userController.user);
 router.get('/auth/users',authMiddleware, userController.getUsers);
 
-// Room routers
+// Room routes
 router.get('/rooms', authMiddleware, roomController.rooms);
 router.get('/room/:id', authMiddleware , param('id', 'Param id must be mongoDB id type').isMongoId(), roomController.room);
+
+// Message routes
+router.get('/messages/:roomId', authMiddleware, messageController.messages);
 
 module.exports = router;
