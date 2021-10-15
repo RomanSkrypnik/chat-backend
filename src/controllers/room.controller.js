@@ -13,6 +13,14 @@ class RoomController {
         }
     }
 
+    async getRoomsByParams(req, res, next) {
+        try {
+            console.log(req.body);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async room(req, res, next) {
         try {
             const errors = validationResult(req);
@@ -23,6 +31,18 @@ class RoomController {
 
             const room = await roomService.getRoom(req.params.id);
             return res.json(room);
+
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async createRoom(req, res, next) {
+        try {
+            const newRoomParams = req.body;
+            const newRoom = await roomService.addNewRoom(newRoomParams);
+
+            return res.json(newRoom);
 
         } catch (e) {
             next(e);

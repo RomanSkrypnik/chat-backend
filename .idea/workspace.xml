@@ -10,15 +10,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/message.controller.js" afterDir="false" />
+    <list default="true" id="daa00ea0-f1bc-441e-af6d-0887c314b5f3" name="Default Changelist" comment="Online users in the room">
+      <change afterPath="$PROJECT_DIR$/src/controllers/topics.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/topics.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/room.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/room.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/user.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/exceptions/api.exceptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions/api.exceptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/message.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/message.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/room.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/room.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,11 +44,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../chat-frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -63,7 +67,8 @@
       <workItem from="1633679616460" duration="17843000" />
       <workItem from="1633939145484" duration="17705000" />
       <workItem from="1634025879713" duration="16754000" />
-      <workItem from="1634122520308" duration="1223000" />
+      <workItem from="1634122520308" duration="3092000" />
+      <workItem from="1634289719918" duration="9279000" />
     </task>
     <task id="LOCAL-00001" summary="Minimal base with sockets">
       <created>1633702094261</created>
@@ -72,11 +77,18 @@
       <option name="project" value="LOCAL" />
       <updated>1633702094262</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Online users in the room">
+      <created>1634127005286</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1634127005286</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -92,29 +104,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minimal base with sockets" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minimal base with sockets" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1634043605377">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1634025892318" />
-    <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1634043605377" />
-    <state x="2168" y="140" key="FileDocumentManager.FileCacheConflict" timestamp="1633421991172">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2168" y="140" key="FileDocumentManager.FileCacheConflict/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633421991172" />
-    <state x="2381" y="165" key="SettingsEditor" timestamp="1633421854101">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2381" y="165" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633421854101" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1633702197417">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1633702197417" />
-    <state x="2536" y="240" key="run.anything.popup" timestamp="1634039839358">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2536" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1634039839358" />
+    <MESSAGE value="Online users in the room" />
+    <option name="LAST_COMMIT_MESSAGE" value="Online users in the room" />
   </component>
 </project>

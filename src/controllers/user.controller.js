@@ -1,10 +1,6 @@
 const userService = require('../services/user.service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api.exceptions');
-const RoomModel = require('../models/Room');
-const UserModel = require('../models/User');
-const MessageModel = require('../models/Message');
-const TopicsModel = require('../models/Topic');
 
 class UserController {
 

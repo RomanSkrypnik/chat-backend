@@ -48,17 +48,27 @@ class RoomService {
                 return ApiExceptions.notFound();
             }
 
-            const currentRoom = await RoomModel.findById(roomId);
-            const userInRoom = currentRoom.users.some(user => user.email === userData.email);
+            await RoomModel.updateOne({_id: roomId}, {'$pull': {"users": {email: userData.email}}});
+            const room = await RoomModel.findById(roomId);
 
-            if (userInRoom) {
-                currentRoom.users = currentRoom.users.filter(user => user.email !== userData.email);
-                currentRoom.save();
+            return room.users.map(user => new UserDto(user));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async addNewRoom(newRoomParams){
+        try{
+            const user = await UserModel.findOne( {email: newRoomParams.email} );
+
+            if(!user) {
+                return ApiExceptions.notFound();
             }
 
-            return currentRoom.users.map(user => new UserDto(user));
+            return await RoomModel.create({...newRoomParams, hosts: [ user ]});
+
         } catch (e) {
-            return null;
+            console.log(e);
         }
     }
 

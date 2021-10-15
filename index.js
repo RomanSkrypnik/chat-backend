@@ -3,7 +3,7 @@ const express = require('express');
 const {createServer} = require('http');
 const {Server} = require('socket.io');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+const multer = require('multer');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const router = require('./src/router');
@@ -14,6 +14,21 @@ const roomService = require('./src/services/room.service');
 const PORT = process.env.PORT || 5000;
 const app = express();
 const httpServer = createServer(app);
+const fileStorageEngine = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, './public/images')
+    },
+    filename(req, file, cb) {
+        cb(null, Date.now() + '--' + file.originalName);
+    }
+});
+const upload = multer({storage: fileStorageEngine});
+
+app.post('/single', upload.single('image') , (req, res) => {
+    console.log(req.file);
+    res.send('Single File is uploaded');
+})
+
 const io = new Server(httpServer, {
     cors: {
         origin: process.env.FRONT_URL,
