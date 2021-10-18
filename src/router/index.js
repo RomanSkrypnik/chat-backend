@@ -21,6 +21,7 @@ router.get('/auth/users',authMiddleware, userController.getUsers);
 
 // Room routes
 router.get('/rooms', authMiddleware, roomController.rooms);
+router.post('/rooms-by-search', authMiddleware, roomController.getRoomsByFilter);
 router.post('/rooms', authMiddleware, roomController.createRoom);
 router.get('/room/:id', authMiddleware , param('id', 'Param id must be mongoDB id type').isMongoId(), roomController.room);
 

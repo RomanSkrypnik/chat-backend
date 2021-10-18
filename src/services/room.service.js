@@ -1,5 +1,6 @@
 const RoomModel = require('../models/Room');
 const UserModel = require('../models/User');
+const TopicModel = require('../models/Topic');
 const UserDto = require('../dtos/user.dto');
 const ApiExceptions = require('../exceptions/api.exceptions');
 
@@ -8,6 +9,21 @@ class RoomService {
 
     async getRooms() {
         return RoomModel.find();
+    }
+
+    async getRoomsByFilter(body) {
+        try {
+            return await RoomModel.find({
+                title: {$regex: '.*' + body.title + '.*'},
+                topics: {
+                    $in: !body.topics.length
+                        ? await TopicModel.find()
+                        : await TopicModel.find({name: body.topics.map(topic => topic.name)})
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getRoom(id) {
@@ -57,15 +73,17 @@ class RoomService {
         }
     }
 
-    async addNewRoom(newRoomParams){
-        try{
-            const user = await UserModel.findOne( {email: newRoomParams.email} );
+    async addNewRoom(newRoomParams) {
+        try {
+            const user = await UserModel.findOne({email: newRoomParams.email});
 
-            if(!user) {
+            if (!user) {
                 return ApiExceptions.notFound();
             }
 
-            return await RoomModel.create({...newRoomParams, hosts: [ user ]});
+            const topics = await TopicModel.find({name: newRoomParams.topics.map(topic => topic.name)});
+
+            return await RoomModel.create({...newRoomParams, topics, hosts: [user]});
 
         } catch (e) {
             console.log(e);

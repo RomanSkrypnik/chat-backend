@@ -7,15 +7,17 @@ class RoomController {
     async rooms(req, res, next) {
         try {
             const rooms = await roomService.getRooms();
-            return res.json(rooms);
+            return await res.json(rooms);
         } catch (e) {
             next(e);
         }
     }
 
-    async getRoomsByParams(req, res, next) {
+    async getRoomsByFilter(req, res, next) {
         try {
-            console.log(req.body);
+            const body = req.body;
+            const roomsByFilter = await roomService.getRoomsByFilter(body);
+            return await res.json(roomsByFilter);
         } catch (e) {
             next(e);
         }
@@ -30,7 +32,7 @@ class RoomController {
             }
 
             const room = await roomService.getRoom(req.params.id);
-            return res.json(room);
+            return await res.json(room);
 
         } catch (e) {
             next(e);
@@ -42,7 +44,7 @@ class RoomController {
             const newRoomParams = req.body;
             const newRoom = await roomService.addNewRoom(newRoomParams);
 
-            return res.json(newRoom);
+            return await res.json(newRoom);
 
         } catch (e) {
             next(e);
