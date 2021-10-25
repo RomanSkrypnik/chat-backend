@@ -15,8 +15,18 @@ const User = new Schema({
         type: String,
         required: true,
     },
-    image: {
+    friends: {
+        type: Array,
+    },
+    groups: {
+        type: Array,
+    },
+    photo: {
         type: String,
+    },
+    online: {
+        type: Boolean,
+        default: false,
     },
     activated: {
         type: Boolean,

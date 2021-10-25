@@ -6,12 +6,13 @@ class UserController {
 
     async registration(req, res, next) {
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('Validation error', errors.array()))
-            }
-            const {email, password} = req.body;
-            await userService.registration(email, password);
+            // const errors = validationResult(req);
+            // if (!errors.isEmpty()) {
+            //     return next(ApiError.badRequest('Validation error', errors.array()))
+            // }
+            const formData = JSON.parse(JSON.stringify(req.body));
+            const photo = req.file.filename;
+            await userService.registration(formData, photo);
             return res.json({message: 'success'});
         } catch (e) {
             next(e);
@@ -61,10 +62,21 @@ class UserController {
         }
     }
 
-    async getUsers(req, res, next) {
+    async usersByLogin(req, res, next) {
         try {
-            const users = await userService.getAllUsers();
+            const { login } = req.body;
+            console.log(login);
+            const users = await userService.getUsersBySearch(login);
             return res.json(users);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async myUsersByLogin(req, res, next) {
+        try {
+            const { login, user } = req.body;
+            const users = await userService.getMyUsersByLogin(login, user);
         } catch (e) {
             next(e);
         }
