@@ -4,6 +4,7 @@ const userController = require('../controllers/user.controller');
 const roomController = require('../controllers/room.controller');
 const messageController = require('../controllers/message.controller');
 const topicsController = require('../controllers/topics.controller');
+const friendController = require('../controllers/friend.controller');
 const friendRequestController = require('../controllers/friendRequest.controller');
 const router = new Router();
 const { body, param } = require('express-validator');
@@ -21,9 +22,7 @@ const upload = multer({storage: fileStorageEngine});
 
 
 // User routes
-router.post('/auth/register',
-    upload.single('photo'),
-    userController.registration);
+router.post('/auth/register', userController.registration);
 router.post('/auth/login', userController.login);
 router.post('/auth/logout', userController.logout);
 router.get('/auth/activate/:link', userController.activate);
@@ -43,8 +42,15 @@ router.get('/messages/:roomId', authMiddleware, messageController.messages);
 // Topics routes
 router.get('/topics', topicsController.topics);
 
+// Friend routes
+router.post('/friends', friendController.friends);
+
 // FriendRequest routes
 router.post('/send-friend-request', friendRequestController.sendFriendRequest);
+router.post('/check-friend-request', friendRequestController.checkFriendRequest);
+router.post('/decline-friend-request', friendRequestController.declineFriendRequest);
+router.post('/accept-friend-request', friendRequestController.acceptFriendRequest);
+router.post('/pending-requests', friendRequestController.pendingRequests);
 
 
 module.exports = router;

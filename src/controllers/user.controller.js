@@ -11,8 +11,7 @@ class UserController {
             //     return next(ApiError.badRequest('Validation error', errors.array()))
             // }
             const formData = JSON.parse(JSON.stringify(req.body));
-            const photo = req.file.filename;
-            await userService.registration(formData, photo);
+            await userService.registration(formData);
             return res.json({message: 'success'});
         } catch (e) {
             next(e);
@@ -65,7 +64,6 @@ class UserController {
     async usersByLogin(req, res, next) {
         try {
             const { login } = req.body;
-            console.log(login);
             const users = await userService.getUsersBySearch(login);
             return res.json(users);
         } catch (e) {

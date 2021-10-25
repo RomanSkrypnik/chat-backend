@@ -7,7 +7,7 @@ const mailService = require('./mail.service');
 const tokenService = require('./token.service');
 
 class UserService {
-    async registration({email, login, password}, photo) {
+    async registration({email, login, password}) {
         const userExists = await UserModel.findOne({login});
 
         if (userExists) {
@@ -16,7 +16,7 @@ class UserService {
 
         const hashPassword = await bcrypt.hash(password, 3);
         const activationLink = uuid.v4();
-        const user = await UserModel.create({email, login, password: hashPassword, photo, activationLink});
+        const user = await UserModel.create({email, login, password: hashPassword, activationLink});
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
         const userDto = new UserDto(user);
