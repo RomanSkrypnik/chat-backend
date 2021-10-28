@@ -4,71 +4,46 @@ const ApiExceptions = require('../exceptions/api.exceptions');
 
 class FriendRequestService {
 
-    async createFriendRequest(senderParam, receiverParam) {
+    async checkUsers(senderParam, receiverParam){
+        const sender = await UserModel.findOne({login: senderParam.login});
+        const receiver = await UserModel.findOne({login: receiverParam.login});
+
+        if (!sender || !receiver) {
+            return ApiExceptions.notFound();
+        }
+
+        return {sender, receiver};
+    }
+
+    async createFriendRequest({sender, receiver}) {
         try {
-            const sender = await UserModel.findOne({login: senderParam.login});
-            const receiver = await UserModel.findOne({login: receiverParam.login});
-
-            if (!sender || !receiver) {
-                return ApiExceptions.notFound();
-            }
-
             const friendRequest = await FriendRequestModel.create({sender: sender._id, receiver: receiver._id})
-
             return !!friendRequest;
         } catch (e) {
             console.log(e);
         }
     }
 
-    async checkFriendRequest(senderParam, receiverParam) {
+    async checkFriendRequest({sender, receiver}) {
         try {
-            const sender = await UserModel.findOne({login: senderParam.login});
-            const receiver = await UserModel.findOne({login: receiverParam.login});
-
-
-            if (!sender || !receiver) {
-                return ApiExceptions.notFound();
-            }
-
             return await FriendRequestModel.findOne({sender: sender._id, receiver: receiver._id});
         } catch (e) {
             console.log(e);
         }
     }
 
-    async declineFriendRequest(senderParam, receiverParam) {
+    async declineFriendRequest({sender, receiver}) {
         try {
-            const sender = await UserModel.findOne({login: senderParam.login});
-            const receiver = await UserModel.findOne({login: receiverParam.login});
-
-
-            if (!sender || !receiver) {
-                return ApiExceptions.notFound();
-            }
-
             const {deletedCount} = await FriendRequestModel.deleteOne({}, {$unset: {sender, receiver}});
-
             return !!deletedCount;
         } catch (e) {
             console.log(e);
         }
     }
 
-    async acceptFriendRequest(senderParam, receiverParam) {
+    async acceptFriendRequest({sender, receiver}) {
         try {
-            const sender = await UserModel.findOne({login: senderParam.login});
-            const receiver = await UserModel.findOne({login: receiverParam.login});
-
-
-            if (!sender || !receiver) {
-                return ApiExceptions.notFound();
-            }
-
             await FriendRequestModel.deleteOne({}, {$unset: {sender, receiver}});
-
-            console.log('sender', sender);
-            console.log('receiver', receiver);
 
             await UserModel.updateOne(sender, {$push: {friends: receiver}});
             await UserModel.updateOne(receiver, {$push: {friends: sender}});

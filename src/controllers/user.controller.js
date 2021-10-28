@@ -1,6 +1,8 @@
 const userService = require('../services/user.service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api.exceptions');
+const UserModel = require("../models/User");
+const ApiExceptions = require("../exceptions/api.exceptions");
 
 class UserController {
 
@@ -63,9 +65,17 @@ class UserController {
 
     async usersByLogin(req, res, next) {
         try {
-            const { login } = req.body;
-            const users = await userService.getUsersBySearch(login);
-            return res.json(users);
+            const { search, user } = req.body;
+
+            const currentUser = await UserModel.findOne({login: user.login});
+
+            if (!currentUser) {
+                return ApiExceptions.notFound();
+            }
+
+            const users = await userService.getUsersBySearch(currentUser, search);
+            const notFriends = userService.checkUsersForFriends(currentUser, users);
+            return res.json(notFriends);
         } catch (e) {
             next(e);
         }

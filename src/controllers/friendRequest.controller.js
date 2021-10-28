@@ -1,11 +1,18 @@
 const friendRequestService = require("../services/friendRequest.service");
+const ApiExceptions = require("../exceptions/api.exceptions");
 
 class FriendRequestController {
 
     async sendFriendRequest(req, res, next) {
         try {
             const {sender, receiver} = req.body;
-            const friendRequest = await friendRequestService.createFriendRequest(sender, receiver);
+            const users = await friendRequestService.checkUsers(sender, receiver);
+
+            if (!users) {
+                return ApiExceptions.notFound();
+            }
+
+            const friendRequest = await friendRequestService.createFriendRequest(users);
             return res.json(friendRequest);
         } catch (e) {
             next(e);
@@ -15,7 +22,13 @@ class FriendRequestController {
     async checkFriendRequest(req, res, next) {
         try {
             const {sender, receiver} = req.body;
-            const friendRequest = await friendRequestService.checkFriendRequest(sender, receiver);
+            const users = await friendRequestService.checkUsers(sender, receiver);
+
+            if (!users) {
+                return ApiExceptions.notFound();
+            }
+
+            const friendRequest = await friendRequestService.checkFriendRequest(users);
             return res.json(friendRequest);
         } catch (e) {
             next(e);
@@ -25,6 +38,12 @@ class FriendRequestController {
     async declineFriendRequest(req, res, next) {
         try {
             const {sender, receiver} = req.body;
+            const users = await friendRequestService.checkUsers(sender, receiver);
+
+            if (!users) {
+                return ApiExceptions.notFound();
+            }
+
             const declinedRequest = await friendRequestService.declineFriendRequest(sender, receiver);
             return res.json(declinedRequest);
         } catch (e) {
@@ -35,7 +54,13 @@ class FriendRequestController {
     async acceptFriendRequest(req, res, next){
         try {
             const {sender, receiver} = req.body;
-            const acceptedRequest = await friendRequestService.acceptFriendRequest(sender, receiver);
+            const users = await friendRequestService.checkUsers(sender, receiver);
+
+            if (!users) {
+                return ApiExceptions.notFound();
+            }
+
+            const acceptedRequest = await friendRequestService.acceptFriendRequest(users);
             return res.json(acceptedRequest);
         } catch (e) {
             next(e);

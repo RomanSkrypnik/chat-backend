@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const UserDto = require('../dtos/user.dto');
 const mailService = require('./mail.service');
 const tokenService = require('./token.service');
+const {log} = require("nodemon/lib/utils");
 
 class UserService {
     async registration({email, login, password}) {
@@ -80,14 +81,19 @@ class UserService {
         return {...tokens, user: userDto};
     }
 
-    async getUsersBySearch(login) {
-        return login ? await UserModel.find({login: {$regex: '.*' + login + '.*'}}) : await UserModel.find();
+    async getUsersBySearch(user, search) {
+        return search ? await UserModel.find({
+            login: {$regex: '.*' + search + '.*'},
+            friends: {$nin: user.friends}
+        }) : await UserModel.find({friends: {$nin: user.friends}});
     }
 
-    async getMyUsersByLogin(login, userParams){
-        const user = await UserModel.findOne({ login: userParams.login });
+    checkUsersForFriends(user, searchedUsers) {
+        return searchedUsers.filter(searchedUser => user.friends.every(friend => !friend.login.includes(searchedUser.login) && searchedUser));
+    }
 
-
+    async getMyUsersByLogin(login, userParams) {
+        const user = await UserModel.findOne({login: userParams.login});
     }
 }
 
