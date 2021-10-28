@@ -81,15 +81,6 @@ class UserController {
         }
     }
 
-    async myUsersByLogin(req, res, next) {
-        try {
-            const { login, user } = req.body;
-            const users = await userService.getMyUsersByLogin(login, user);
-        } catch (e) {
-            next(e);
-        }
-    }
-
     async user(req, res, next) {
         try {
             return res.json({user: req.user});
@@ -97,6 +88,7 @@ class UserController {
             next(e);
         }
     }
+
 
 }
 

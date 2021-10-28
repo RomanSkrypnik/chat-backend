@@ -5,6 +5,7 @@ const roomController = require('../controllers/room.controller');
 const messageController = require('../controllers/message.controller');
 const topicsController = require('../controllers/topics.controller');
 const friendController = require('../controllers/friend.controller');
+const privateMessageController = require('../controllers/privateMessage.controller');
 const friendRequestController = require('../controllers/friendRequest.controller');
 const router = new Router();
 const { body, param } = require('express-validator');
@@ -44,6 +45,7 @@ router.get('/topics', topicsController.topics);
 
 // Friend routes
 router.post('/friends', friendController.friends);
+router.post('/friends-by-search', friendController.friendsBySearch);
 
 // FriendRequest routes
 router.post('/send-friend-request', friendRequestController.sendFriendRequest);
@@ -51,6 +53,11 @@ router.post('/check-friend-request', friendRequestController.checkFriendRequest)
 router.post('/decline-friend-request', friendRequestController.declineFriendRequest);
 router.post('/accept-friend-request', friendRequestController.acceptFriendRequest);
 router.post('/pending-requests', friendRequestController.pendingRequests);
+
+// PrivateMessage routes
+router.post('/last-private-messages', privateMessageController.privateLastMessages);
+router.post('/private-messages', privateMessageController.privateMessages);
+router.post('/send-message', privateMessageController.createNewPrivateMessage);
 
 
 module.exports = router;
