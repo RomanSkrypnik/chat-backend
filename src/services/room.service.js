@@ -58,7 +58,7 @@ class RoomService {
 
     async removeOfflineUser(user, roomId) {
         try {
-            const userData = await UserModel.findOne({email: user.email});
+            const userData = await UserModel.findOne({login: user.login});
 
             if (!userData) {
                 return ApiExceptions.notFound();

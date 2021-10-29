@@ -1,5 +1,4 @@
 const PrivateMessagesModel = require('../models/PrivateMessage');
-const UserModel = require('../models/User');
 
 class PrivateMessageService {
 
@@ -15,7 +14,15 @@ class PrivateMessageService {
                     ]
                 })
                 .sort({$natural: -1});
-            messages.push({message, friendId: friend._id});
+            messages.push(
+                {
+                    message,
+                    friend:
+                        {
+                            login: friend.login,
+                            friendId: friend._id
+                        }
+                });
         }
         return messages;
     }

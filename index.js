@@ -10,6 +10,8 @@ const router = require('./src/router');
 const errorMiddleware = require('./src/middleware/error.middlware');
 const messageService = require('./src/services/message.service');
 const roomService = require('./src/services/room.service');
+const privateMessageService = require('./src/services/privateMessage.service');
+const UserModel = require('./src/models/User');
 const path = require("path");
 
 const PORT = process.env.PORT || 5000;
@@ -42,30 +44,61 @@ const start = async () => {
 
         io.on('connection', (socket) => {
             sockets.push(socket);
+            console.log('Connection');
 
-            socket.on('room', async ({roomId, user}) => {
+            socket.on('main-connect', async (user) => {
+                if (user) {
+                    const i = sockets.indexOf(socket);
+                    sockets[i].user = user;
+                    await UserModel.findOneAndUpdate({login: user.login}, {online: true, socketId: sockets[i].id});
+                }
+            });
+
+            socket.on('join-room', async (roomId, user) => {
+                const joinedUser = await UserModel.findOne({login: user.login});
                 const i = sockets.indexOf(socket);
-                sockets[i].user = user;
+
                 sockets[i].roomId = roomId;
                 socket.join(roomId);
-                const onlineUsers = await roomService.addOnlineUser(user, roomId);
-                io.in(roomId).emit('usersOnline', onlineUsers);
+
+                const onlineUsers = await roomService.addOnlineUser(joinedUser, roomId);
+                io.in(roomId).emit('users-online', onlineUsers);
             });
 
-            socket.on('send-message', async (messageData) => {
-                const newMessage = await messageService.sendMessage(messageData);
-                io.in(messageData.room).emit('newMessage', newMessage);
+            socket.on('send-private-message', async (receiverId, message) => {
+                const i = sockets.indexOf(socket);
+
+                const receiver = await UserModel.findById(receiverId);
+                const sender = await UserModel.findOne({login: sockets[i].user.login});
+                const newMessage = await privateMessageService.createNewMessage({sender, receiver}, message);
+
+                io.in(receiver.socketId).emit('new-private-message', newMessage);
+                socket.emit('new-private-message-self', newMessage);
             });
 
-            socket.on('userLeft', async ({roomId, user}) => {
-                const onlineUsers = await roomService.removeOfflineUser(user, roomId);
-                io.in(roomId).emit('usersOnline', onlineUsers);
+            socket.on('send-room-message', async (roomId, user, message) => {
+                const newMessage = await messageService.sendMessage(roomId, user, message);
+                io.in(roomId).emit('new-room-message', newMessage);
+            });
+
+            socket.on('leave-room', async (roomId, user) => {
+                if (roomId) {
+                    const onlineUsers = await roomService.removeOfflineUser(user, roomId);
+                    io.in(roomId).emit('users-online', onlineUsers);
+                    socket.leave(roomId);
+                }
             });
 
             socket.on('disconnect', async () => {
                 const i = sockets.indexOf(socket);
-                const onlineUsers = await roomService.removeOfflineUser(sockets[i].user, sockets[i].roomId);
-                io.in(sockets[i].roomId).emit('usersOnline', onlineUsers);
+                const login = sockets[i].user ? sockets[i].user.login : null;
+                const roomId = sockets[i].roomId;
+
+                if (login && roomId) {
+                    const user = await UserModel.findOneAndUpdate({login}, {online: false, socketId: null});
+                    const onlineUsers = await roomService.removeOfflineUser(user, roomId);
+                    io.in(roomId).emit('users-online', onlineUsers);
+                }
             });
 
             socket.on('error', (e) => {

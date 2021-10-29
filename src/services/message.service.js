@@ -2,24 +2,21 @@ const MessageModel = require('../models/Message');
 
 class MessageService {
 
-    async sendMessage(messageData) {
-        const newMessage = await MessageModel.create({
-            text: messageData.text,
-            email: messageData.email,
-            room: messageData.room,
+    async sendMessage(roomId, user, message) {
+        return await MessageModel.create({
+            room: roomId,
+            email: user.email,
+            text: message
         });
-        return newMessage;
     }
 
     async getMessagesByOffset(offset, roomId) {
-        const newMessages = await MessageModel
+        return MessageModel
             .find()
             .where({room: roomId})
             .skip(parseInt(offset))
             .limit(20)
             .sort({$natural: -1});
-
-        return newMessages;
     }
 
 }
