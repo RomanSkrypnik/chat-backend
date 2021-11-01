@@ -80,21 +80,23 @@ class UserService {
         return {...tokens, user: userDto};
     }
 
-    async getUsersBySearch(user, search) {
-        return search ? await UserModel.find({
-            login: {$regex: '.*' + search + '.*'},
-            friends: {$nin: user.friends}
-        }) : await UserModel.find({friends: {$nin: user.friends}});
-    }
+    async getUsersBySearch(currentUser, search) {
 
-    checkUsersForFriends(user, searchedUsers) {
-        return searchedUsers.filter(searchedUser => user.friends.every(friend => !friend.login.includes(searchedUser.login) && searchedUser));
+        const users = search
+            ? await UserModel.find({$and: [{login: {$regex: '.*' + search + '.*'}},{login: {$ne: currentUser.login}}]})
+            : await UserModel.find();
+
+        return users.filter(user => {
+            return currentUser.friends.every(friend => {
+                return !friend.login.includes(user.login);
+            });
+        });
     }
 
     async getUser({login}) {
         const user = await UserModel.findOne({login});
 
-        if(!user) {
+        if (!user) {
             return ApiExceptions.notFound();
         }
 

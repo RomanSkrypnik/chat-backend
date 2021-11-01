@@ -14,15 +14,21 @@ class FriendService {
     }
 
     async getFriendsBySearch({login}, search) {
-        const user = await UserModel.findOne({login});
+        const currentUser = await UserModel.findOne({login});
 
-        if (!user) {
+        if (!currentUser) {
             return ApiExceptions.notFound();
         }
 
-        return search
+        const users = search
             ? await UserModel.find({login: {$regex: '.*' + search + '.*'}})
-            : await UserModel.find({login: {$nin: user.login}});
+            : currentUser.friends;
+
+        return users.filter(user => {
+            return currentUser.friends.every(friend => {
+                return friend.login.includes(user.login);
+            })
+        });
     }
 
 }

@@ -65,7 +65,7 @@ class UserController {
 
     async usersByLogin(req, res, next) {
         try {
-            const { search, user } = req.body;
+            const {search, user} = req.body;
 
             const currentUser = await UserModel.findOne({login: user.login});
 
@@ -74,8 +74,7 @@ class UserController {
             }
 
             const users = await userService.getUsersBySearch(currentUser, search);
-            const notFriends = userService.checkUsersForFriends(currentUser, users);
-            return res.json(notFriends);
+            return res.json(users);
         } catch (e) {
             next(e);
         }
