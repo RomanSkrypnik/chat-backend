@@ -11,8 +11,8 @@ const errorMiddleware = require('./src/middleware/error.middlware');
 const messageService = require('./src/services/message.service');
 const roomService = require('./src/services/room.service');
 const privateMessageService = require('./src/services/privateMessage.service');
+const friendRequestService = require('./src/services/friendRequest.service');
 const UserModel = require('./src/models/User');
-const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -44,7 +44,6 @@ const start = async () => {
 
         io.on('connection', (socket) => {
             sockets.push(socket);
-            console.log('Connection');
 
             socket.on('main-connect', async (user) => {
                 if (user) {
@@ -89,6 +88,23 @@ const start = async () => {
                 }
             });
 
+            socket.on('send-friend-request', async (users) => {
+                const {sender, receiver} = users;
+                const currentUsers = await friendRequestService.checkUsers(sender, receiver);
+                const currentSender = await friendRequestService.createFriendRequest(currentUsers);
+
+                io.in(users.receiver.socketId).emit('new-friend-request', currentSender);
+            });
+
+            socket.on('decline-friend-request', async (users) => {
+                const {sender, receiver} = users;
+                const currentUsers = await friendRequestService.checkUsers(sender, receiver);
+                const currentSender = await friendRequestService.declineFriendRequest(currentUsers);
+
+                socket.emit('decline-friend-request', currentSender);
+                io.in(users.receiver.socketId).emit('decline-friend-request', currentSender);
+            });
+
             socket.on('disconnect', async () => {
                 const i = sockets.indexOf(socket);
                 const login = sockets[i].user ? sockets[i].user.login : null;
@@ -111,6 +127,6 @@ const start = async () => {
     } catch (e) {
         console.log(e);
     }
-}
+};
 
 start();

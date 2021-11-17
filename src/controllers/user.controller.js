@@ -74,7 +74,7 @@ class UserController {
             }
 
             const users = await userService.getUsersBySearch(currentUser, search);
-            return res.json(users);
+            return await res.json(users);
         } catch (e) {
             next(e);
         }

@@ -29,7 +29,7 @@ class FriendRequestController {
             }
 
             const friendRequest = await friendRequestService.checkFriendRequest(users);
-            return res.json(friendRequest);
+            return await res.json(friendRequest);
         } catch (e) {
             next(e);
         }
@@ -61,7 +61,7 @@ class FriendRequestController {
             }
 
             const acceptedRequest = await friendRequestService.acceptFriendRequest(users);
-            return res.json(acceptedRequest);
+            return await res.json(acceptedRequest);
         } catch (e) {
             next(e);
         }

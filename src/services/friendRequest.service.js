@@ -4,7 +4,7 @@ const ApiExceptions = require('../exceptions/api.exceptions');
 
 class FriendRequestService {
 
-    async checkUsers(senderParam, receiverParam){
+    async checkUsers(senderParam, receiverParam) {
         const sender = await UserModel.findOne({login: senderParam.login});
         const receiver = await UserModel.findOne({login: receiverParam.login});
 
@@ -17,8 +17,8 @@ class FriendRequestService {
 
     async createFriendRequest({sender, receiver}) {
         try {
-            const friendRequest = await FriendRequestModel.create({sender: sender._id, receiver: receiver._id})
-            return !!friendRequest;
+            await FriendRequestModel.create({sender: sender._id, receiver: receiver._id});
+            return sender;
         } catch (e) {
             console.log(e);
         }
@@ -26,7 +26,16 @@ class FriendRequestService {
 
     async checkFriendRequest({sender, receiver}) {
         try {
-            return await FriendRequestModel.findOne({sender: sender._id, receiver: receiver._id});
+            return FriendRequestModel.findOne({
+                $or: [{
+                    sender: sender._id,
+                    receiver: receiver._id
+                }, {
+                    sender: receiver._id,
+                    receiver: sender._id
+                }
+                ]
+            });
         } catch (e) {
             console.log(e);
         }
@@ -34,8 +43,8 @@ class FriendRequestService {
 
     async declineFriendRequest({sender, receiver}) {
         try {
-            const {deletedCount} = await FriendRequestModel.deleteOne({}, {$unset: {sender, receiver}});
-            return !!deletedCount;
+            await FriendRequestModel.deleteOne({}, {$unset: {sender, receiver}});
+            return sender;
         } catch (e) {
             console.log(e);
         }

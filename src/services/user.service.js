@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const UserDto = require('../dtos/user.dto');
 const mailService = require('./mail.service');
 const tokenService = require('./token.service');
+const FriendRequestModel = require('../models/FriendRequest');
 
 class UserService {
     async registration({email, login, password}) {
@@ -83,8 +84,21 @@ class UserService {
     async getUsersBySearch(currentUser, search) {
 
         const users = search
-            ? await UserModel.find({$and: [{login: {$regex: '.*' + search + '.*'}},{login: {$ne: currentUser.login}}]})
-            : await UserModel.find();
+            ? await UserModel.find({
+                $and: [
+                    {
+                        login: {
+                            $regex: '.*' + search + '.*'
+                        }
+                    },
+                    {
+                        login: {
+                            $ne: currentUser.login
+                        }
+                    }
+                ]
+            })
+            : await UserModel.find({login: {$ne: currentUser.login}});
 
         return users.filter(user => {
             return currentUser.friends.every(friend => {
